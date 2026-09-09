@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GataMart - Local Shopping</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f5f6fa;
+    color:#222;
+}
+
+/* HEADER */
+.header{
+    background:#ffffff;
+    padding:15px;
+    position:sticky;
+    top:0;
+    z-index:100;
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+
+.top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+    color:#2878ff;
+}
+
+.logo span{
+    color:#111;
+}
+
+.icons{
+    display:flex;
+    gap:15px;
+    font-size:22px;
+}
+
+.search{
+    margin-top:13px;
+    background:#f1f3f7;
+    border-radius:12px;
+    padding:12px 15px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.search input{
+    width:100%;
+    border:0;
+    outline:0;
+    background:transparent;
+    font-size:15px;
+}
+
+/* LOCATION */
+.location{
+    padding:12px 15px;
+    background:white;
+    font-size:13px;
+}
+
+.location b{
+    color:#2878ff;
+}
+
+/* CATEGORIES */
+.section{
+    padding:18px 15px 5px;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:13px;
+}
+
+.section-title h2{
+    font-size:19px;
+}
+
+.section-title span{
+    color:#2878ff;
+    font-size:13px;
+}
+
+.categories{
+    display:flex;
+    gap:13px;
+    overflow-x:auto;
+}
+
+.categories::-webkit-scrollbar{
+    display:none;
+}
+
+.category{
+    min-width:75px;
+    text-align:center;
+}
+
+.cat-img{
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+    margin:auto;
+}
+
+.category p{
+    font-size:12px;
+    margin-top:7px;
+}
+
+/* BANNER */
+.banner{
+    margin:18px 15px;
+    border-radius:20px;
+    padding:25px 20px;
+    background:linear-gradient(135deg,#2878ff,#5e9cff);
+    color:white;
+    min-height:170px;
+    position:relative;
+    overflow:hidden;
+}
+
+.banner h1{
+    font-size:25px;
+    margin-bottom:8px;
+}
+
+.banner p{
+    font-size:14px;
+    opacity:.9;
+    margin-bottom:18px;
+}
+
+.banner button{
+    border:0;
+    padding:10px 18px;
+    border-radius:20px;
+    background:white;
+    color:#2878ff;
+    font-weight:bold;
+}
+
+.circle{
+    position:absolute;
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    background:rgba(255,255,255,.12);
+    right:-50px;
+    top:-30px;
+}
+
+/* PRODUCTS */
+.products{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:13px;
+}
+
+.product{
+    background:white;
+    border-radius:16px;
+    padding:10px;
+    box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+
+.product-img{
+    height:145px;
+    background:#f4f5f7;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:65px;
+}
+
+.product h3{
+    font-size:14px;
+    margin-top:10px;
+}
+
+.rating{
+    color:#f6a800;
+    font-size:12px;
+    margin:5px 0;
+}
+
+.price{
+    font-size:17px;
+    font-weight:bold;
+}
+
+.old{
+    color:#999;
+    text-decoration:line-through;
+    font-size:12px;
+    margin-left:5px;
+}
+
+.add{
+    width:100%;
+    margin-top:9px;
+    padding:9px;
+    border:1px solid #2878ff;
+    border-radius:10px;
+    background:white;
+    color:#2878ff;
+    font-weight:bold;
+}
+
+/* BOTTOM NAV */
+.bottom{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:65px;
+    background:white;
+    box-shadow:0 -3px 15px rgba(0,0,0,.1);
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:100;
+}
+
+.nav{
+    text-align:center;
+    font-size:21px;
+}
+
+.nav p{
+    font-size:10px;
+    margin-top:3px;
+}
+
+.active{
+    color:#2878ff;
+}
+
+/* CART */
+.cart-count{
+    background:#2878ff;
+    color:white;
+    font-size:10px;
+    border-radius:50%;
+    padding:3px 6px;
+    position:absolute;
+    margin-left:-8px;
+    margin-top:-5px;
+}
+
+.space{
+    height:80px;
+}
+
+@media(min-width:700px){
+    .products{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .header,.location{
+        padding-left:8%;
+        padding-right:8%;
+    }
+
+    .section{
+        padding-left:8%;
+        padding-right:8%;
+    }
+
+    .banner{
+        margin-left:8%;
+        margin-right:8%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+
+    <div class="top">
+        <div class="logo">Gata<span>Mart</span></div>
+
+        <div class="icons">
+            ♡
+            🛒<span class="cart-count" id="cartCount">0</span>
+        </div>
+    </div>
+
+    <div class="search">
+        🔍
+        <input type="text" id="search"
+        placeholder="Kya chahiye? Search karein..."
+        onkeyup="searchProduct()">
+    </div>
+
+</header>
+
+<!-- LOCATION -->
+<div class="location">
+    📍 Delivery to <b>Gataguda</b> ▾
+</div>
+
+<!-- CATEGORIES -->
+<section class="section">
+
+    <div class="section-title">
+        <h2>Categories</h2>
+        <span>View All →</span>
+    </div>
+
+    <div class="categories">
+
+        <div class="category">
+            <div class="cat-img">🥦</div>
+            <p>Vegetables</p>
+        </div>
+
+        <div class="category">
+            <div class="cat-img">🍚</div>
+            <p>Grocery</p>
+        </div>
+
+        <div class="category">
+            <div class="cat-img">🥛</div>
+            <p>Milk</p>
+        </div>
+
+        <div class="category">
+            <div class="cat-img">🍪</div>
+            <p>Snacks</p>
+        </div>
+
+        <div class="category">
+            <div class="cat-img">🧴</div>
+            <p>Household</p>
+        </div>
+
+        <div class="category">
+            <div class="cat-img">👕</div>
+            <p>Fashion</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- BANNER -->
+<div class="banner">
+
+    <div class="circle"></div>
+
+    <h1>Ghar baithe<br>Shopping karein 🛍️</h1>
+
+    <p>
+        Aapke aas-paas ke gaon mein<br>
+        fast home delivery.
+    </p>
+
+    <button>Shop Now →</button>
+
+</div>
+
+<!-- PRODUCTS -->
+<section class="section">
+
+    <div class="section-title">
+        <h2>Popular Products</h2>
+        <span>See All →</span>
+    </div>
+
+    <div class="products" id="products">
+
+        <div class="product">
+
+            <div class="product-img">🍚</div>
+
+            <h3>Premium Rice 5 KG</h3>
+
+            <div class="rating">★★★★★</div>
+
+            <div class="price">
+                ₹299
+                <span class="old">₹350</span>
+            </div>
+
+            <button class="add" onclick="addCart()">
+                + Add to Cart
+            </button>
+
+        </div>
+
+
+        <div class="product">
+
+            <div class="product-img">🥛</div>
+
+            <h3>Fresh Cow Milk 1 L</h3>
+
+            <div class="rating">★★★★★</div>
+
+            <div class="price">
+                ₹55
+            </div>
+
+            <button class="add" onclick="addCart()">
+                + Add to Cart
+            </button>
+
+        </div>
+
+
+        <div class="product">
+
+            <div class="product-img">🍪</div>
+
+            <h3>Family Biscuits Pack</h3>
+
+            <div class="rating">★★★★☆</div>
+
+            <div class="price">
+                ₹40
+                <span class="old">₹50</span>
+            </div>
+
+            <button class="add" onclick="addCart()">
+                + Add to Cart
+            </button>
+
+        </div>
+
+
+        <div class="product">
+
+            <div class="product-img">🧴</div>
+
+            <h3>Premium Dishwash</h3>
+
+            <div class="rating">★★★★★</div>
+
+            <div class="price">
+                ₹99
+            </div>
+
+            <button class="add" onclick="addCart()">
+                + Add to Cart
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<div class="space"></div>
+
+
+<!-- BOTTOM NAV -->
+<div class="bottom">
+
+    <div class="nav active">
+        🏠
+        <p>Home</p>
+    </div>
+
+    <div class="nav">
+        📂
+        <p>Categories</p>
+    </div>
+
+    <div class="nav">
+        🛒
+        <p>Cart</p>
+    </div>
+
+    <div class="nav">
+        📦
+        <p>Orders</p>
+    </div>
+
+    <div class="nav">
+        👤
+        <p>Account</p>
+    </div>
+
+</div>
+
+
+<script>
+
+let cart = 0;
+
+function addCart(){
+
+    cart++;
+
+    document.getElementById("cartCount")
+    .innerText = cart;
+
+}
+
+function searchProduct(){
+
+    let input =
+    document.getElementById("search")
+    .value.toLowerCase();
+
+    let products =
+    document.querySelectorAll(".product");
+
+    products.forEach(function(product){
+
+        let name =
+        product.querySelector("h3")
+        .innerText.toLowerCase();
+
+        if(name.includes(input)){
+            product.style.display="block";
+        }
+        else{
+            product.style.display="none";
+        }
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>
